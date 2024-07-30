@@ -1,13 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
-void dfs(int a[10][10],int n,int visited[10],int source)
+void bfs(int a[10][10],int n,int visited[10],int source)
 {
-    int i;
+    int q[10],r=-1,f=0,delnode,i;
     visited[source]=1;
-    for(i=1;i<=n;i++)
+    q[++r]=source;
+    while(f<=r)
     {
-        if(a[source][i]==1 && visited[i]==0)
-            dfs(a,n,visited,i);
+       delnode=q[f++];
+       for(i=1;i<=n;i++)
+       {
+           if(a[delnode][i]==1 && visited[i]==0)
+           {
+               q[++r]=i;
+               visited[i]=1;
+           }
+       }
     }
 }
 int main()
@@ -27,7 +35,7 @@ int main()
     {
         if(visited[i]==0)
         {
-            dfs(a,n,visited,i);
+            bfs(a,n,visited,i);
             count++;
         }
     }
